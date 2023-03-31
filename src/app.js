@@ -52,10 +52,6 @@ db.on("connected", (err, res) => {
 // ],
 //   })
 })
- website_tut
-
-
-
 app.listen(port,()=>{
     console.log(`Server estblished ${port}`);
 })

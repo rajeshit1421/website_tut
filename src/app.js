@@ -5,6 +5,7 @@ const express = require("express");
 const logger = require('./logger');
 const routes = require('./routes/main');
 const hbs = require("hbs");
+
 const Detail = require("./models/detail")
 const app = express();
 const mongoose =require("mongoose");
@@ -16,6 +17,7 @@ app.use('/',routes);
 //Template engine
 app.set('view engine','hbs');
 app.set("views","views");
+
 hbs.registerPartials("views/partial")
 
 //db connections
@@ -50,6 +52,7 @@ db.on("connected", (err, res) => {
 // ],
 //   })
 })
+ website_tut
 
 
 

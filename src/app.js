@@ -29,6 +29,7 @@ db.on("error", (err) => {
   console.log("err", err);
 });
 db.on("connected", (err, res) => {
+
   //   Detail.create({
   //     brandName:"R V Technologogy",
   //     brandIconurl:"",
@@ -55,3 +56,4 @@ db.on("connected", (err, res) => {
 app.listen(port, () => {
   console.log(`Server estblished ${port}`);
 });
+

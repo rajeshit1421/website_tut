@@ -14,6 +14,6 @@ routes.get("/gallery",async(req,res)=>{
     res.render("gallery",{
       details:details
     })
-   
+  });
 
 module.exports = routes;

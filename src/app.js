@@ -6,11 +6,14 @@ const routes = require("./routes/main");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
 const Detail = require("./models/detail");
-
+const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
-const port = process.env.PORT || 3000;
-
+const connectDB = require("./config/connectdb.js");
+const candidateRoutes = require("./routes/candidateRoutes");
+const upload = require("./middleware/upload-middleware.js");
+//Cors Policy
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use("/static", express.static("public"));
 app.use("/", routes);
@@ -19,41 +22,19 @@ app.set("view engine", "hbs");
 app.set("views", "views");
 
 hbs.registerPartials("views/partial");
+const port = process.env.PORT || 3000;
+const DATABASE_URL = process.env.DATABASE_URL;
 
+// app.use(
+//   upload.fields([
+//     { name: "pimage", maxCount: 1 },
+//     { name: "rdoc", maxCount: 1 },
+//   ])
+// );
+app.use(express.json());
+app.use("/api", candidateRoutes);
 //db connections
-mongoose.connect("mongodb://127.0.0.1:27017/website_tut", {
-  useNewUrlParser: "true",
-});
-const db = mongoose.connection;
-db.on("error", (err) => {
-  console.log("err", err);
-});
-db.on("connected", (err, res) => {
-
-  //   Detail.create({
-  //     brandName:"R V Technologogy",
-  //     brandIconurl:"",
-  //     links:[
-  //         {
-  //         label:"Home",
-  //         url:"/"
-  //     }, {
-  //       label:"Services",
-  //       url:"/services"
-  //   },{
-  //     label:"Gallery",
-  //     url:"/gallery"
-  // },{
-  //   label:"About",
-  //   url:"/about"
-  // },{
-  //   label:"Contact Us",
-  //   url:"/contact-us"
-  // }
-  // ],
-  //   })
-});
+connectDB(DATABASE_URL);
 app.listen(port, () => {
   console.log(`Server estblished ${port}`);
 });
-
